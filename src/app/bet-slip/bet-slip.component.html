@@ -1,0 +1,35 @@
+
+<!-- Si no se han seleccionado bolas se muestra el placeholder -->
+<div *ngIf="bolas.length==0" class="row">
+    <div class=" my-3 mx-2 bolaGris circuloSeleccionadas text-center" *ngFor="let number of [0,1,2,3,4,6,7,8] "></div>
+</div>
+
+<div class="mx-auto" >
+    <div class="row">
+        <!-- Se rellenan las bolas seleccionadas -->
+        <p *ngFor="let n of bolas;let i = index;" class="my-3 mx-2 boton{{bolas[i]}} circuloSeleccionadas text-center">
+            {{bolas[i]}}
+        </p>
+    </div>
+  </div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="form-inline mb-3">
+                <div class="input-group-prepend">
+                    <!-- El multiplicador cambia dependiendo de las bolas seleccionadas -->
+                  <span class="input-group-text" id="multiplicador">{{bolas.length}}x</span>
+                </div>
+                <input type="number" min="5" class="form-control w-50" placeholder="Cantidad" [(ngModel)]="cantidadApostada" name="cantidadApostada" >
+                <button class="btn-primary w-25" (click)="getApuestaTotal()">OK</button>  
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+            Total:
+        <p id="apuestaTotal">{{apuestaTotal | currency:'EUR':true}}</p>
+    </div>
+    
+</div>
+<!-- El boton esta desactivado a no ser que se seleccione alguna bola y  la apuesta total sea mayor de 5 -->
+<button [disabled]="bolas.length==0|| apuestaTotal<5 || apuestaTotal==null" class="btn btn-primary w-100"(click)="obtenerBolaGanadora()" > Place Bet</button>

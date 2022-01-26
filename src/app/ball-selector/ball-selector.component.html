@@ -1,0 +1,51 @@
+<!-- Si la apuesta no ha finalizado se muestra el menú selector de bolas -->
+<div class="my-4" *ngIf="!finApuesta" >
+  <h5>Numbers</h5>
+  <div class="mx-auto">
+    <div class="row">
+      <div class="col text-center">
+        <!-- Se crean las bolas dinamicamente con la directiva ngFor -->
+        <button type="button" class="mr-2 boton{{i+1}} circulo btn" (click)="pickedBalls(i+1,$event)" *ngFor="let n of numOfBalls(10);
+           let i = index;" id="{{i+1}}"> {{i+1}} </button>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col text-center">
+        <button class="btn btn-link mx-auto" (click)="borrarSeleccion()" >Clear selection</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Si la apuesta ha finalizado se muestra el número ganador con el texto de you won o you lost -->
+<div *ngIf="finApuesta">
+  <!-- Si ha ganado la apuesta se muestra el siguiente elemento -->
+  <div *ngIf="apuestaGanada" class="my-5">
+    <p class="circuloBolaGanadora mx-auto boton{{bolaGanadora}} text-center">{{bolaGanadora}}</p>
+    <p style="color: green;" class=" font-weight-bold text-center">YOU WON, {{premio| currency:'EUR':true}}</p>
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <button (click)="playAgain()" class="btn btn-primary mx-auto">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Si ha perdido la apuesta se muestra el siguiente elemento -->
+  <div *ngIf="!apuestaGanada" class="my-5">
+    <p class="circuloBolaGanadora mx-auto boton{{bolaGanadora}} text-center">{{bolaGanadora}}</p>
+    <p style="color: red;" class=" font-weight-bold text-center">You Lost</p>
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+          <button (click)="playAgain()" class="btn btn-primary mx-auto">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
